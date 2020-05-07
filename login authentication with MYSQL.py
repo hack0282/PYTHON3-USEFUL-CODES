@@ -28,7 +28,7 @@ def Database():
         global conn, cursor, user_id, username, password
 
         #fill your deatlis in order to connect to the database
-        conn = mysql.connector.connect(user="rohith", password="S@!rohitH7342", database="order_management")
+        conn = mysql.connector.connect(user="usr", password="pass", database="dbname")
         cursor = conn.cursor()
         sql = "select password from users where username=%s"
         cursor.execute(sql,(USERNAME.get(),))
