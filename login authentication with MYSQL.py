@@ -26,16 +26,16 @@ def Database():
         lbl_text.config(text="Please complete the required field!", fg="red")
     else:
         global conn, cursor, user_id, username, password
-        
+
         #fill your deatlis in order to connect to the database
-        conn = mysql.connector.connect(user="usr", password="passwd", database="database name")
+        conn = mysql.connector.connect(user="rohith", password="S@!rohitH7342", database="order_management")
         cursor = conn.cursor()
-        sql = "select username from users where password=%s"
-        cursor.execute(sql,(PASSWORD.get(),))
+        sql = "select password from users where username=%s"
+        cursor.execute(sql,(USERNAME.get(),))
         usr= cursor.fetchone()
         if usr is not None:
-            sql="select password from users where username=%s"
-            cursor.execute(sql,(USERNAME.get(),))
+            sql="select username from users where password=%s"
+            cursor.execute(sql,(PASSWORD.get(),))
             passwd= cursor.fetchone()
             if passwd is not None:
                 HomeWindow()
@@ -44,12 +44,11 @@ def Database():
 
                 lbl_text.config(text="")
             else:
-                lbl_text.config(text="Invalid username", fg="red")
+                lbl_text.config(text="Invalid Password", fg="red")
                 USERNAME.set("")
                 PASSWORD.set("") 
-
         else:
-            lbl_text.config(text="Invalid password", fg="red")
+            lbl_text.config(text="Invalid Username", fg="red")
             USERNAME.set("")
             PASSWORD.set("")
 
