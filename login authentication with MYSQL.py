@@ -102,9 +102,9 @@ en_password = Entry(Form,textvariable=PASSWORD, show="*", font=(14))
 en_password.grid(row=1, column=1)
 
 #step6: Button Widgets
-btn_login = Button(Form, text="Login", width=45, command=Database)
+btn_login = Button(Form, text="Login", width=45, command=Login)
 btn_login.grid(pady=25, row=3, columnspan=2)
-btn_login.bind('<Return>', Database)
+btn_login.bind('<Return>', Login)
 
 #step10:running in loop the whole code
 root.mainloop()
