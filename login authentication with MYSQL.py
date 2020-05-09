@@ -18,40 +18,38 @@ x = (screen_width / 2) - (width / 2)
 y = (screen_height / 2) - (height / 2)
 root.geometry("%dx%d+%d+%d" % (width, height, x, y))
 root.resizable(0, 0)
-
 #METHODS
 #step7: creating a Database logic and button logic
 def Database():
-    if USERNAME.get()=="" and PASSWORD.get()=="":
+    global conn, cursor, user_id, username, password
+    conn = mysql.connector.connect(user="username", password="password", database="order_management")
+    cursor = conn.cursor()
+
+def Login(event=None):
+    if USERNAME.get() == "" and PASSWORD.get() == "":
         lbl_text.config(text="Please complete the required field!", fg="red")
     else:
-        global conn, cursor, user_id, username, password
-
-        #fill your deatlis in order to connect to the database
-        conn = mysql.connector.connect(user="usr", password="pass", database="dbname")
-        cursor = conn.cursor()
+        Database()
         sql = "select password from users where username=%s"
-        cursor.execute(sql,(USERNAME.get(),))
-        usr= cursor.fetchone()
+        cursor.execute(sql, (USERNAME.get(),))
+        usr = cursor.fetchone()
         if usr is not None:
-            sql="select username from users where password=%s"
-            cursor.execute(sql,(PASSWORD.get(),))
-            passwd= cursor.fetchone()
+            sql = "select username from users where password=%s"
+            cursor.execute(sql, (PASSWORD.get(),))
+            passwd = cursor.fetchone()
             if passwd is not None:
+                showinfo("successfully logged in", "welcome to customer portal")
                 HomeWindow()
                 USERNAME.set('')
                 PASSWORD.set('')
-
-                lbl_text.config(text="")
             else:
                 lbl_text.config(text="Invalid Password", fg="red")
                 USERNAME.set("")
-                PASSWORD.set("") 
+                PASSWORD.set("")
         else:
             lbl_text.config(text="Invalid Username", fg="red")
             USERNAME.set("")
             PASSWORD.set("")
-
         cursor.close()
         conn.close()
 
